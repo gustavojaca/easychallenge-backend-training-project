@@ -1,0 +1,5 @@
+export const CONFIG = {
+    API_PORT: 12544,
+    CHALLENGE_GENERATOR_API_URI: 'http://127.0.0.1:12543',
+    PRELOAD_CACHE_SIZE: 10,
+};

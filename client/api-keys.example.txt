@@ -1,0 +1,10 @@
+// This file is an example of api-keys.txt
+// The keys defined in that file have to have on key per line
+
+// Empty lines and lines that begins with '//' are ignored
+
+// Here there are some example api keys, but they can be any string
+nFCKwQPccJ7YK2v4
+gYIRx6x38xHAbzFT
+qaS9ZKEb3hEudHhV
+xYUJxjaiGwJ6B581

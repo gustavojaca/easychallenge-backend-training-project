@@ -1,0 +1,6 @@
+export const CONFIG = {
+    SOLUTION_NAMESPACE: '6edc495c-860c-4917-921f-3c9a04636d74',
+    SOLUTION_HASHING_ALGORITHM: 'sha256',
+    CLIENT_HANDLER_API_URI: 'http://127.0.0.1:12544',
+    API_KEYS_TXT_FILE: 'api-keys.txt',
+};

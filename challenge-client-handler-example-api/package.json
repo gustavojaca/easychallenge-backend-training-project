@@ -1,0 +1,15 @@
+{
+  "name": "challenge-client-handler-example-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "api": "node --watch api.js"
+  },
+  "author": "Gabriel Martín Moran",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "type": "module"
+}
