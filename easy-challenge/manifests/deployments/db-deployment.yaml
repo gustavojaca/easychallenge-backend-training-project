@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: easy-challenge-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: easy-challenge-db
+  template:
+    metadata:
+      labels:
+        app: easy-challenge-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15
+        env:
+        - name: POSTGRES_USER
+          value: "myuser"
+        - name: POSTGRES_PASSWORD
+          value: "mypassword"
+        - name: POSTGRES_DB
+          value: "easy_challenge"
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+      volumes:      	
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc

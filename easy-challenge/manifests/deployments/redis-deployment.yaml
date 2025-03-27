@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: easy-challenge-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: easy-challenge-redis
+  template:
+    metadata:
+      labels:
+        app: easy-challenge-redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379

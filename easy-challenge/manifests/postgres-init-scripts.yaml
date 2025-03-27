@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-scripts
+data:
+  init.sh: |
+    #!/bin/bash
+    chmod +x /docker-entrypoint-initdb.d/init.sh
+    DB_FLAG="/var/lib/postgresql/data/db_initialized"
+
+    if [ ! -f "$DB_FLAG" ]; then
+        echo "Running init script..."
+        psql -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/init.sql
+        touch "$DB_FLAG"
+    else
+        echo "Database already initialized. Skipping init script."
+    fi
+  init.sql: |
+    CREATE USER dbuser WITH PASSWORD 'e@sy-p@ssw0rd';
+
+    GRANT ALL PRIVILEGES ON DATABASE easy_challenge TO dbuser;
+
+    CREATE TABLE users (
+        user_id SERIAL PRIMARY KEY,
+        usuario VARCHAR NOT NULL
+    );
+
+    CREATE TABLE api_keys (
+        api_key_id SERIAL PRIMARY KEY,
+        user_id INT NOT NULL,
+        api_key VARCHAR NOT NULL,
+        FOREIGN KEY (user_id)
+            REFERENCES users(user_id)
+    );
+
+    CREATE TABLE challenges_log (
+        user_id INT NOT NULL,
+        challenge VARCHAR NOT NULL,
+        time_stamp TIMESTAMP NOT NULL,
+        event_desc VARCHAR NOT NULL, 
+        FOREIGN KEY (user_id)
+            REFERENCES users(user_id)
+    );
+
+    INSERT INTO users (usuario)
+    VALUES ('test');
+
+    INSERT INTO api_keys (user_id, api_key)
+    SELECT user_id, 'easy_ch-7YFBoVqK2cVPSmYnoJTR1vlBUlXYbG0Xu8VEiknsTrKyp8XFkIv50n5r' 
+    FROM users
+    WHERE usuario = 'test';
+
+    INSERT INTO api_keys (user_id, api_key)
+    SELECT user_id, 'easy_ch-Z9nVf2DoPClxE87Udr50TYHaQpK4ObM6yBVguwq3Rk1IshFcLmXNU' 
+    FROM users
+    WHERE usuario = 'test';
+
+    GRANT ALL PRIVILEGES ON TABLE users TO dbuser;
+    GRANT ALL PRIVILEGES ON TABLE api_keys TO dbuser;
+    GRANT ALL PRIVILEGES ON TABLE challenges_log TO dbuser;

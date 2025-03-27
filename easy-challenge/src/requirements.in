@@ -1,0 +1,4 @@
+redis[hiredis]
+aiohttp
+sqlalchemy
+psycopg2
