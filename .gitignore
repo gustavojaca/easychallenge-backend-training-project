@@ -16,3 +16,4 @@ fork/
 docker-compose.yml
 initdb/init_script.sql
 manifests/
+data/
